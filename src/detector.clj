@@ -38,5 +38,4 @@
   (->> invaders
        (mapcat #(detect radar %))
        (filter #(<= threshold (:similarity %)))
-       (sort-by (juxt (comp - :similarity) :x :y))
-       (map #(dissoc % :image))))
+       (sort-by (juxt (comp - :similarity) :x :y))))
