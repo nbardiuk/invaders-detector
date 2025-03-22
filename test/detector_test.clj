@@ -14,7 +14,7 @@
                  "--o--"
                  "-----"]]
       (is (= [{:x 1 :y 1 :width 3 :height 3}]
-             (detector/detect radar invader)))))
+             (detector/detect-all 1 radar [invader])))))
 
   (testing "multiple matches"
     (let [invader ["-o"
@@ -27,7 +27,7 @@
       (is (= [{:x 0 :y 1 :width 2 :height 2}
               {:x 2 :y 2 :width 2 :height 2}
               {:x 3 :y 0 :width 2 :height 2}]
-             (detector/detect radar invader)))))
+             (detector/detect-all 1 radar [invader])))))
 
   (testing "no matches"
     (let [invader ["-o"
@@ -37,7 +37,7 @@
                  "-oo--"
                  "---o-"]]
       (is (= []
-             (detector/detect radar invader))))))
+             (detector/detect-all 1 radar [invader]))))))
 
 (deftest exact-match-multiple-invaders
   (testing "multiple invaders"
@@ -54,7 +54,7 @@
       (is (= [{:x 3 :y 1 :width 2 :height 1}
               {:x 1 :y 0 :width 1 :height 2}
               {:x 3 :y 3 :width 1 :height 2}]
-             (detector/detect-all radar [single multiple missing]))))))
+             (detector/detect-all 1 radar [single multiple missing]))))))
 
 (deftest fuzzy-matching
   (let [invader ["-o-"

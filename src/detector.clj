@@ -28,17 +28,13 @@
         matching-ratio (/ matching-pixels total-pixels)]
     (<= threshold matching-ratio)))
 
-(defn detect
-  ([radar invader]
-   (detect 1.0 radar invader))
-  ([threshold radar invader]
-   (->>
-     (all-subimages radar (image-size invader))
-     (filter #(match threshold invader %))
-     (map #(dissoc % :image)))))
+(defn- detect
+  [threshold radar invader]
+  (->>
+    (all-subimages radar (image-size invader))
+    (filter #(match threshold invader %))
+    (map #(dissoc % :image))))
 
 (defn detect-all
-  ([radar invaders]
-   (detect-all 1.0 radar invaders))
-  ([threshold radar invaders]
-   (mapcat #(detect threshold radar %) invaders)))
+  [threshold radar invaders]
+  (mapcat #(detect threshold radar %) invaders))
