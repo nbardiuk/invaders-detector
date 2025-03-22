@@ -39,9 +39,8 @@
                  "-oo--"
                  "---o-"]]
       (is (= []
-             (detector/detect-all 1 radar [invader]))))))
+             (detector/detect-all 1 radar [invader])))))
 
-(deftest exact-match-multiple-invaders
   (testing "multiple invaders sorted by position"
     (let [single ["oo"]
           multiple ["o"
