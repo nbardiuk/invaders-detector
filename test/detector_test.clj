@@ -40,7 +40,7 @@
              (detector/detect-all 1 radar [invader]))))))
 
 (deftest exact-match-multiple-invaders
-  (testing "multiple invaders"
+  (testing "multiple invaders sorted by position"
     (let [single ["oo"]
           multiple ["o"
                     "o"]
@@ -51,8 +51,8 @@
                  "o----"
                  "-o-o-"
                  "---o-"]]
-      (is (= [{:x 3 :y 1 :width 2 :height 1}
-              {:x 1 :y 0 :width 1 :height 2}
+      (is (= [{:x 1 :y 0 :width 1 :height 2}
+              {:x 3 :y 1 :width 2 :height 1}
               {:x 3 :y 3 :width 1 :height 2}]
              (detector/detect-all 1 radar [single multiple missing]))))))
 

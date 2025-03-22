@@ -37,4 +37,6 @@
 
 (defn detect-all
   [threshold radar invaders]
-  (mapcat #(detect threshold radar %) invaders))
+  (->> invaders
+       (mapcat #(detect threshold radar %))
+       (sort-by (juxt :x :y))))
