@@ -20,23 +20,23 @@
                 subimage (subimage image area)]]
       (assoc area :image subimage))))
 
-(defn match [threshold invader {:keys [image width height]}]
+(defn- similarity
+  [invader {:keys [image width height]}]
   (let [matching-pixels (->> (map = (mapcat seq invader) (mapcat seq image))
                              (filter identity)
                              count)
-        total-pixels (* width height)
-        matching-ratio (/ matching-pixels total-pixels)]
-    (<= threshold matching-ratio)))
+        total-pixels (* width height)]
+    (/ matching-pixels total-pixels)))
 
-(defn- detect
-  [threshold radar invader]
+(defn- detect [radar invader]
   (->>
     (all-subimages radar (image-size invader))
-    (filter #(match threshold invader %))
-    (map #(dissoc % :image))))
+    (map #(assoc % :similarity (similarity invader %)))))
 
 (defn detect-all
   [threshold radar invaders]
   (->> invaders
-       (mapcat #(detect threshold radar %))
-       (sort-by (juxt :x :y))))
+       (mapcat #(detect radar %))
+       (filter #(<= threshold (:similarity %)))
+       (sort-by (juxt (comp - :similarity) :x :y))
+       (map #(dissoc % :image))))
