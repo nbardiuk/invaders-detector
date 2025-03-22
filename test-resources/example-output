@@ -1,0 +1,29 @@
+Found invader at {x: 60, y: 13, width: 11, height: 8} with similarity 0.909: 
+--o-----o--
+-------o---
+--oooo-oo--
+----ooo-oo-
+o--oooooo-o
+o-o-ooooo-o
+o-o-----o-o
+---oo-oo---
+
+Found invader at {x: 42, y: 0, width: 8, height: 8} with similarity 0.875: 
+---oo---
+--ooo-o-
+--ooooo-
+oo--o-oo
+oo-ooooo
+-----o--
+oo-oo-o-
+o-o--ooo
+
+Found invader at {x: 74, y: 1, width: 11, height: 8} with similarity 0.875: 
+ooo-----o--
+o--o-o-o---
+--o-ooooo--
+oo--ooo-oo-
+ooooooo-ooo
+oooo--ooo-o
+o-o-----o-o
+---oo-oo---
