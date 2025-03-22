@@ -7,15 +7,19 @@
    :height (count image)})
 
 (defn- extract
-  [image [x y] area]
-  (let [size (image-size image)]
-    (for [i (range y (min (+ y (:height area)) (:height size)))]
-      (str/join (take (:width area) (drop x (image i)))))))
+  [image {:keys [x y width height]}]
+  (let [total-size (image-size image)]
+    (for [row (range y (min (+ y height) (:height total-size)))]
+      (str/join (take width (drop x (image row)))))))
 
-(defn detect [invader radar]
+(defn detect [radar invader]
   (let [invader-size (image-size invader)
         radar-size (image-size radar)]
     (for [x (range 0 (:width radar-size))
           y (range 0 (:height radar-size))
-          :when (= invader (extract radar [x y] invader-size))]
-      [x y])))
+          :let [area (assoc invader-size :x x :y y)]
+          :when (= invader (extract radar area))]
+      area)))
+
+(defn detect-all [radar invaders]
+  (mapcat #(detect radar %) invaders))
