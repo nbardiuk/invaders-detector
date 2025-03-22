@@ -10,8 +10,8 @@
     (with-out-str
       (apply script/-main args))))
 
-(defn- resource-full-path [new-binding]
-  (str (io/file (io/resource new-binding))))
+(defn- resource-full-path [name]
+  (str (io/file (io/resource name))))
 
 (deftest input-validation
   (testing "summary of usage on argument error"

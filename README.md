@@ -17,6 +17,8 @@ clojure -M -m script \
 <details>
 <summary>Example output</summary>
 
+Found invaders sorted by similrity and position
+
 ```
 Found invader at {x: 60, y: 13, width: 11, height: 8} with similarity 0.909: 
 --o-----o--
