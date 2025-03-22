@@ -1,6 +1,6 @@
 ## Space Invaders detection
 
-```sh
+```
 Usage:
   -r, --radar FILE              Path to radar file
   -i, --invaders FILE           Path to invaders patterns file
@@ -141,3 +141,9 @@ o--oo------o-----oo--o-oo------------oo--o------o--o-------------oo----o--------
 ```
 
 </details>
+
+## Run test
+
+```sh
+clj -X:test
+```
