@@ -20,11 +20,25 @@
                 subimage (subimage image area)]]
       (assoc area :image subimage))))
 
-(defn detect [radar invader]
-  (->>
-    (all-subimages radar (image-size invader))
-    (filter #(= invader (:image %)))
-    (map #(dissoc % :image))))
+(defn match [threshold invader {:keys [image width height]}]
+  (let [matching-pixels (->> (map = (mapcat seq invader) (mapcat seq image))
+                             (filter identity)
+                             count)
+        total-pixels (* width height)
+        matching-ratio (/ matching-pixels total-pixels)]
+    (<= threshold matching-ratio)))
 
-(defn detect-all [radar invaders]
-  (mapcat #(detect radar %) invaders))
+(defn detect
+  ([radar invader]
+   (detect 1.0 radar invader))
+  ([threshold radar invader]
+   (->>
+     (all-subimages radar (image-size invader))
+     (filter #(match threshold invader %))
+     (map #(dissoc % :image)))))
+
+(defn detect-all
+  ([radar invaders]
+   (detect-all 1.0 radar invaders))
+  ([threshold radar invaders]
+   (mapcat #(detect threshold radar %) invaders)))

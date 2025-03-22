@@ -55,3 +55,19 @@
               {:x 1 :y 0 :width 1 :height 2}
               {:x 3 :y 3 :width 1 :height 2}]
              (detector/detect-all radar [single multiple missing]))))))
+
+(deftest fuzzy-matching
+  (let [invader ["-o-"
+                 "o-o"
+                 "-o-"]
+        radar ["-----"
+               "--o--"
+               "-ooo-"
+               "--o--"
+               "-----"]]
+    (testing "above threshold"
+      (is (= [{:x 1 :y 1 :width 3 :height 3}]
+            (detector/detect-all 8/9 radar [invader]))))
+    (testing "below threshold"
+      (is (= []
+            (detector/detect-all 9/10 radar [invader]))))))
